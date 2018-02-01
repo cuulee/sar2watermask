@@ -69,7 +69,7 @@ p_ur = Point(size.width/2,0)
 p_ll = Point(500,size.height/2)
 p_lr = Point(size.width/2,size.height/2)
 
-subsetDim = Dimension(size.width/2-500,size.height/2)
+subsetDim = Dimension(size.width/4-500,size.height/4)
 
 r_ul = Rectangle(p_ul,subsetDim)
 r_ur = Rectangle(p_ur,subsetDim)
