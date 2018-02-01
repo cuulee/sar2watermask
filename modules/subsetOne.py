@@ -114,9 +114,6 @@ ProductIO.writeProduct(CalSf,sarOut+"/"+product.getName() + "_" + labelSubset,ou
 ### release products from memory
 product_subset.dispose()
 CalSf.dispose()
-CalSfWater.dispose()
-CalSfWaterCorr1.dispose()
-CalSfWaterCorr2.dispose()        
 product.dispose()
 System.gc()
 
