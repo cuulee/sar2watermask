@@ -99,13 +99,23 @@ for child in root:
 
 CalSf = GPF.createProduct('Speckle-Filter',params,Cal)
 
+## Geometric correction
+
+params = HashMap()
+root = xml.etree.ElementTree.parse(proj+"/parameters/"+'terrain_correction2.xml').getroot()
+for child in root:
+    params.put(child.tag,child.text)
+    
+CalSfCorr = GPF.createProduct('Terrain-Correction',params,CalSf)
+
+
 ### write output
-ProductIO.writeProduct(CalSf,sarOut+"/"+product.getName() + "_" + labelSubset,outForm)
+ProductIO.writeProduct(CalSfCorr,sarOut+"/"+product.getName() + "_" + labelSubset,outForm)
 
 ### release products from memory
 product_subset.dispose()
 CalSf.dispose()
+CalSfCorr.dispose()
 product.dispose()
 System.gc()
 
-print("\n********** sar2watermask completed!" + str(len(flist))  + " scenes processed\n********** Elapsed time: " + str(datetime.datetime.now()-t0) + "\n********** End of message\n")
