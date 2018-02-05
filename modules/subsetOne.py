@@ -57,29 +57,20 @@ description = product.getDescription()
 band_names = product.getBandNames()
 
 # Initiate processing
-    
+
 GPF.getDefaultInstance().getOperatorSpiRegistry().loadOperatorSpis()
 
-# Subset into 4 pieces
+# Subset into one piece on the upper-left corner
 
 size = product.getSceneRasterSize()
 
 p_ul = Point(500,0)
-p_ur = Point(size.width/2,0)
-p_ll = Point(500,size.height/2)
-p_lr = Point(size.width/2,size.height/2)
 
 subsetDim = Dimension(size.width/4-500,size.height/4)
 
-r_ul = Rectangle(p_ul,subsetDim)
-r_ur = Rectangle(p_ur,subsetDim)
-r_ll = Rectangle(p_ll,subsetDim)
-r_lr = Rectangle(p_lr,subsetDim)
-
-rect=[r_ul,r_ur,r_ll,r_lr]
+r = Rectangle(p_ul,subsetDim)
 
 ##### process upper left only as an example
-r=r_ul
 
 op = SubsetOp()
 op.setSourceProduct(product)
@@ -90,15 +81,15 @@ labelSubset = "x" + r.x.__str__() + "_y" + r.y.__str__()
 
 
 ## Calibration
-        
+
 params = HashMap()
 
 root = xml.etree.ElementTree.parse(proj+"/parameters/"+'calibration.xml').getroot()
 for child in root:
     params.put(child.tag,child.text)
-    
+
 Cal = GPF.createProduct('Calibration',params,product_subset)
-    
+
 ## Speckle filtering
 
 params = HashMap()
