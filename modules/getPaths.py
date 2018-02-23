@@ -37,6 +37,3 @@ polOut=scratch + "/test_dataset/watermasks"
 MONGO_HOST = "141.89.96.184"
 MONGO_DB = "sar2watermask"
 MONGO_PORT = 27017
-
-sys.path.insert(0, home['parameters'])
-from parameters.credentials import *
