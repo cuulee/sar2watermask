@@ -31,8 +31,6 @@ from modules.getPaths import *
 
 # Some definitions
 
-t0=datetime.datetime.now()
-
 outForm='GeoTIFF+XML'
 WKTReader = snappy.jpy.get_type('com.vividsolutions.jts.io.WKTReader')
 HashMap = snappy.jpy.get_type('java.util.HashMap')
@@ -116,7 +114,7 @@ current_bands = CalSfWater.getBandNames()
 print("Current Bands after Band Arithmetics 2:   %s \n" % (list(current_bands)))
 
 ### write output
-ProductIO.writeProduct(CalSfWater,sarOut+"/"+product.getName() + "_" + labelSubset + "_watermask",outForm)
+ProductIO.writeProduct(CalSfWater,sarOut+"/testproduct_watermask",outForm)
 
 ### release products from memory
 product_subset.dispose()

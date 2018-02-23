@@ -31,8 +31,6 @@ from modules.getPaths import *
 
 # Some definitions
 
-t0=datetime.datetime.now()
-
 outForm='GeoTIFF+XML'
 WKTReader = snappy.jpy.get_type('com.vividsolutions.jts.io.WKTReader')
 HashMap = snappy.jpy.get_type('java.util.HashMap')
@@ -42,13 +40,7 @@ Dimension = snappy.jpy.get_type('java.awt.Dimension')
 System = jpy.get_type('java.lang.System')
 BandDescriptor = jpy.get_type('org.esa.snap.core.gpf.common.BandMathsOp$BandDescriptor')
 
-
-flist=listdir(sarIn)
-
-
-f=flist[0]
-
-product = ProductIO.readProduct(sarOut+"/"+f)
+product = ProductIO.readProduct(sarOut+"/testproduct_watermask.tif")
 
 height = product.getSceneRasterHeight()
 width = product.getSceneRasterWidth()
@@ -58,50 +50,7 @@ band_names = product.getBandNames()
 
 GPF.getDefaultInstance().getOperatorSpiRegistry().loadOperatorSpis()
 
-    # Subset into 4 pieces
-
-
-
-
-        ## Calibration
-
-params = HashMap()
-root = xml.etree.ElementTree.parse(proj+"/parameters/"+'calibration.xml').getroot()
-for child in root:
-    params.put(child.tag,child.text)
-
-Cal = GPF.createProduct('Calibration',params,product_subset)
-
-        ## Speckle filtering
-
-params = HashMap()
-root = xml.etree.ElementTree.parse(proj+"/parameters/"+'speckle_filtering.xml').getroot()
-for child in root:
-    params.put(child.tag,child.text)
-
-CalSf = GPF.createProduct('Speckle-Filter',params,Cal)
-
-        ## Band Arithmetics 1
-
-expression = open(proj+"/parameters/"+'band_maths1.txt',"r").read()
-
-targetBand1 = BandDescriptor()
-targetBand1.name = 'watermask'
-targetBand1.type = 'float32'
-targetBand1.expression = expression
-
-targetBands = jpy.array('org.esa.snap.core.gpf.common.BandMathsOp$BandDescriptor', 1)
-targetBands[0] = targetBand1
-
-parameters = HashMap()
-parameters.put('targetBands', targetBands)
-CalSfWater = GPF.createProduct('BandMaths', parameters, CalSf)
-
-current_bands = CalSfWater.getBandNames()
-print("Current Bands after Band Arithmetics 2:   %s \n" % (list(current_bands)))
-
-
-        ## Geometric correction
+## Geometric correction
 
 params = HashMap()
 root = xml.etree.ElementTree.parse(proj+"/parameters/"+'terrain_correction.xml').getroot()
