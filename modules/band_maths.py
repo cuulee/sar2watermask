@@ -48,7 +48,7 @@ flist=listdir(sarIn)
 
 f=flist[0]
 
-product = ProductIO.readProduct(sarOut+"/"+f)
+product = ProductIO.readProduct(sarIn+"/"+f)
 
 height = product.getSceneRasterHeight()
 width = product.getSceneRasterWidth()
@@ -78,7 +78,7 @@ product_subset = op.getTargetProduct()
 labelSubset = "x" + r.x.__str__() + "_y" + r.y.__str__()
 
 
-        ## Calibration
+## Calibration
 
 params = HashMap()
 root = xml.etree.ElementTree.parse(proj+"/parameters/"+'calibration.xml').getroot()
@@ -115,28 +115,12 @@ CalSfWater = GPF.createProduct('BandMaths', parameters, CalSf)
 current_bands = CalSfWater.getBandNames()
 print("Current Bands after Band Arithmetics 2:   %s \n" % (list(current_bands)))
 
+### write output
+ProductIO.writeProduct(CalSfWater,sarOut+"/"+product.getName() + "_" + labelSubset + "_watermask",outForm)
 
-        ## Geometric correction
-
-params = HashMap()
-root = xml.etree.ElementTree.parse(proj+"/parameters/"+'terrain_correction.xml').getroot()
-for child in root:
-    params.put(child.tag,child.text)
-
-CalSfWaterCorr1 = GPF.createProduct('Terrain-Correction',params,CalSfWater)
-
-current_bands = CalSfWaterCorr1.getBandNames()
-print("Current Bands after Terrain Correction:   %s \n" % (list(current_bands)))
-
-
-
-        ### write output
-ProductIO.writeProduct(CalSfWaterCorr2,sarOut+"/"+product.getName() + "_" + labelSubset + "_watermask",outForm)
-
-        ### release products from memory
+### release products from memory
 product_subset.dispose()
 CalSf.dispose()
 CalSfWater.dispose()
-CalSfWaterCorr1.dispose()
 product.dispose()
 System.gc()
