@@ -16,11 +16,10 @@ else:
         'home' : expanduser("~"),
         'auxdata' : expanduser("~") + '/proj/tests/sar2watermask/auxdata',
         'parameters' : expanduser("~") + '/proj/tests/sar2watermask/parameters'
-    }
+        }
 
     home['scratch'] = '/mnt/scratch/martinsd'
-    home['proj'] = expanduser("~") + '/proj/tests/sar2watermask',
-
+    home['proj'] = expanduser("~") + '/proj/tests/sar2watermask'
 
 pyt = home['home'] + "/local/miniconda2/envs/gdal/bin/python"
 gdalPol = home['home'] + "/local/miniconda2/envs/gdal/bin/gdal_polygonize.py"

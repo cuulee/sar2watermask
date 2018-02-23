@@ -73,7 +73,7 @@ op.setRegion(r)
 product_subset = op.getTargetProduct()
 labelSubset = "x" + r.x.__str__() + "_y" + r.y.__str__()
 
-
+proj = proj[0]
 ## Calibration
 
 params = HashMap()
