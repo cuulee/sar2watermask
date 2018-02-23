@@ -14,9 +14,7 @@ from snappy import ProductIO
 from snappy import jpy
 from snappy import HashMap
 from snappy import Rectangle
-
-
-from modules.getPaths import *
+from getPaths import *
 
 
 #############################
