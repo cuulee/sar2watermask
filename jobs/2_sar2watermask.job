@@ -8,6 +8,8 @@
 #PBS -l mem=20gb
 cd /users/stud09/martinsd/proj/sar2watermask/jobs
 
+cd /users/stud09/martinsd/proj/sar2watermask/jobs
+
 source activate snappy
 
 export JAVA_TOOL_OPTIONS="-Xmx16g"

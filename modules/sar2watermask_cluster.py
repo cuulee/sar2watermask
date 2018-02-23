@@ -1,4 +1,3 @@
-print("1 begin imports\n")
 
 from os import listdir
 import os
@@ -35,8 +34,6 @@ from modules.getPaths import *
 
 t0=datetime.datetime.now()
 
-print("2 begin defining functions from snappy\n")
-
 outForm='GeoTIFF+XML'
 WKTReader = snappy.jpy.get_type('com.vividsolutions.jts.io.WKTReader')
 HashMap = snappy.jpy.get_type('java.util.HashMap')
@@ -53,29 +50,18 @@ status=0
 # Read products
 f=flist[0]
 
-for f in flist:
-    status=status+1
+status=status+1
 
-    print("SCENE " + str(status) + " of " + str(len(flist)) + "\n\n")
 
-    print("3 begin reading product\n")
+product = ProductIO.readProduct(sarIn+"/"+f)
 
-    product = ProductIO.readProduct(sarIn+"/"+f)
-    print("\n processing " + f + "\n")
-    print("at " + str(datetime.datetime.now()) + "\n")
+height = product.getSceneRasterHeight()
+width = product.getSceneRasterWidth()
+name = product.getName()
+description = product.getDescription()
+band_names = product.getBandNames()
 
-    # Obtain some attributes
-
-    height = product.getSceneRasterHeight()
-    width = product.getSceneRasterWidth()
-    name = product.getName()
-    description = product.getDescription()
-    band_names = product.getBandNames()
-
-    # Initiate processing
-    print("4 initiate processing\n")
-
-    GPF.getDefaultInstance().getOperatorSpiRegistry().loadOperatorSpis()
+GPF.getDefaultInstance().getOperatorSpiRegistry().loadOperatorSpis()
 
     # Subset into 4 pieces
 
