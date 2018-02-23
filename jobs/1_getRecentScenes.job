@@ -7,6 +7,10 @@
 #PBS -l walltime=00:9:59
 #PBS -l mem=1gb
 cd /users/stud09/martinsd/proj/sar2watermask/jobs
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3bb905fd4a9942595a481273a1c1a5c4be08819d
 source activate snappy
 
 python /users/stud09/martinsd/proj/sar2watermask/modules/getRecentScenes.py
