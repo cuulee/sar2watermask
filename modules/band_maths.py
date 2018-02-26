@@ -77,7 +77,7 @@ proj = proj[0]
 ## Calibration
 
 params = HashMap()
-root = xml.etree.ElementTree.parse(home['parameters']+'calibration.xml').getroot()
+root = xml.etree.ElementTree.parse(home['parameters']+'/calibration.xml').getroot()
 for child in root:
     params.put(child.tag,child.text)
 
@@ -86,7 +86,7 @@ Cal = GPF.createProduct('Calibration',params,product_subset)
         ## Speckle filtering
 
 params = HashMap()
-root = xml.etree.ElementTree.parse(home['parameters']+'speckle_filtering.xml').getroot()
+root = xml.etree.ElementTree.parse(home['parameters']+'/speckle_filtering.xml').getroot()
 for child in root:
     params.put(child.tag,child.text)
 
@@ -94,7 +94,7 @@ CalSf = GPF.createProduct('Speckle-Filter',params,Cal)
 
         ## Band Arithmetics 1
 
-expression = open(home['parameters']+'band_maths1.txt',"r").read()
+expression = open(home['parameters']+'/band_maths1.txt',"r").read()
 
 targetBand1 = BandDescriptor()
 targetBand1.name = 'watermask'
